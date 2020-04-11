@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.KairaviSamani:CustomViews:1.0.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8828fe02307d4565a5b905a3d7d5da7d/CutomLibrary-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8828fe02307d4565a5b905a3d7d5da7d/CutomLibrary-1.0.0/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.KairaviSamani/CustomViews/1.0.0/ed3cdff85f9d7034b3e1852a1c1a86f90e520f50/CustomViews-1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CustomLibraryDemo</string>
+    <string name="employee_details">Employee Details</string>
+    <string name="full_time_employee">Full Time Employee</string>
+    <string name="part_time_employee">Part Time Employee</string>
+    <string name="choose_employee_category">Choose Employee Category</string>
+</resources>
