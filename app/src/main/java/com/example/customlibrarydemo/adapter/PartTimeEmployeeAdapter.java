@@ -8,18 +8,22 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.example.customlibrarydemo.R;
+import com.example.customlibrarydemo.model.FullTimeEmployee;
 import com.example.customlibrarydemo.model.PartTimeEmployee;
 import com.example.customviewlibrary.CustomTextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PartTimeEmployeeAdapter extends BaseAdapter {
     private Context context;
     private List<PartTimeEmployee> partTimeEmployeeList;
+    private List<PartTimeEmployee> copyPartTimeEmployeeList;
 
     public PartTimeEmployeeAdapter(Context context, List<PartTimeEmployee> partTimeEmployeeList) {
         this.context = context;
         this.partTimeEmployeeList = partTimeEmployeeList;
+        this.copyPartTimeEmployeeList = partTimeEmployeeList;
     }
     @Override
     public int getCount() {
@@ -52,5 +56,17 @@ public class PartTimeEmployeeAdapter extends BaseAdapter {
         txvHours.setText(String.format("%sH",String.valueOf(partTimeEmployee.getHoursWorked())));
 
         return convertView;
+    }
+
+    public void searchEmployee(String searchText){
+        partTimeEmployeeList = new ArrayList<>();
+        for (PartTimeEmployee partTimeEmployee : copyPartTimeEmployeeList){
+            if (partTimeEmployee.getName().toLowerCase().contains(searchText.toLowerCase()) ||
+                    partTimeEmployee.getJobTitle().toLowerCase().contains(searchText.toLowerCase()) ||
+                    partTimeEmployee.getDepartment().toLowerCase().contains(searchText.toLowerCase())){
+                partTimeEmployeeList.add(partTimeEmployee);
+            }
+        }
+        notifyDataSetChanged();
     }
 }

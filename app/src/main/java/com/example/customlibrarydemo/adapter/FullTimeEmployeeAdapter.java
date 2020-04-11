@@ -11,15 +11,18 @@ import com.example.customlibrarydemo.R;
 import com.example.customlibrarydemo.model.FullTimeEmployee;
 import com.example.customviewlibrary.CustomTextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FullTimeEmployeeAdapter extends BaseAdapter {
     private Context context;
     private List<FullTimeEmployee> fullTimeEmployeeList;
+    private List<FullTimeEmployee> copyFullTimeEmployeeList;
 
     public FullTimeEmployeeAdapter(Context context, List<FullTimeEmployee> fullTimeEmployeeList) {
         this.context = context;
         this.fullTimeEmployeeList = fullTimeEmployeeList;
+        this.copyFullTimeEmployeeList = fullTimeEmployeeList;
     }
     @Override
     public int getCount() {
@@ -52,5 +55,17 @@ public class FullTimeEmployeeAdapter extends BaseAdapter {
         txvSalary.setText(String.valueOf(fullTimeEmployee.getSalary()));
 
         return convertView;
+    }
+
+    public void searchEmployee(String searchText){
+        fullTimeEmployeeList = new ArrayList<>();
+        for (FullTimeEmployee fullTimeEmployee : copyFullTimeEmployeeList){
+            if (fullTimeEmployee.getName().toLowerCase().contains(searchText.toLowerCase()) ||
+                    fullTimeEmployee.getJobTitle().toLowerCase().contains(searchText.toLowerCase()) ||
+                    fullTimeEmployee.getDepartment().toLowerCase().contains(searchText.toLowerCase())){
+                fullTimeEmployeeList.add(fullTimeEmployee);
+            }
+        }
+        notifyDataSetChanged();
     }
 }

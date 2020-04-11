@@ -1,6 +1,10 @@
 package com.example.customlibrarydemo.activity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.customlibrarydemo.R;
 import com.example.customlibrarydemo.adapter.PartTimeEmployeeAdapter;
 import com.example.customlibrarydemo.model.PartTimeEmployee;
+import com.example.customviewlibrary.CustomEditText;
 import com.example.customviewlibrary.CustomTextView;
 
 import java.util.ArrayList;
@@ -28,6 +33,8 @@ public class PartTimeEmployeeListActivity extends AppCompatActivity {
         CustomTextView txvTitle = findViewById(R.id.txvTitle);
         txvTitle.setText(getText(R.string.part_time_employee));
         ListView lsvEmployee = findViewById(R.id.lsvEmployee);
+        final CustomEditText edtSearch = findViewById(R.id.edtSearch);
+        ImageView imvSearch = findViewById(R.id.imvSearch);
 
         PartTimeEmployee partTimeEmployee1 = new PartTimeEmployee();
         partTimeEmployee1.setName("John");
@@ -74,8 +81,33 @@ public class PartTimeEmployeeListActivity extends AppCompatActivity {
 
         partTimeEmployeeList.add(partTimeEmployee5);
 
-        PartTimeEmployeeAdapter partTimeEmployeeAdapter = new PartTimeEmployeeAdapter(this, partTimeEmployeeList);
+        final PartTimeEmployeeAdapter partTimeEmployeeAdapter = new PartTimeEmployeeAdapter(this, partTimeEmployeeList);
         lsvEmployee.setAdapter(partTimeEmployeeAdapter);
+
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                partTimeEmployeeAdapter.searchEmployee(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        imvSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (edtSearch.getText() != null)
+                    partTimeEmployeeAdapter.searchEmployee(edtSearch.getText().toString().trim());
+            }
+        });
     }
 
 }

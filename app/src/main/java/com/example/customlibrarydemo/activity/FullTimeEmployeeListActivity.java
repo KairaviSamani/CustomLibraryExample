@@ -1,6 +1,10 @@
 package com.example.customlibrarydemo.activity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.customlibrarydemo.R;
 import com.example.customlibrarydemo.adapter.FullTimeEmployeeAdapter;
 import com.example.customlibrarydemo.model.FullTimeEmployee;
+import com.example.customviewlibrary.CustomEditText;
 import com.example.customviewlibrary.CustomTextView;
 
 import java.util.ArrayList;
@@ -27,7 +32,9 @@ public class FullTimeEmployeeListActivity extends AppCompatActivity {
     private void initView() {
         CustomTextView txvTitle = findViewById(R.id.txvTitle);
         txvTitle.setText(getText(R.string.full_time_employee));
-        ListView lsvEmployee = findViewById(R.id.lsvEmployee);
+        final CustomEditText edtSearch = findViewById(R.id.edtSearch);
+        ImageView imvSearch = findViewById(R.id.imvSearch);
+        final ListView lsvEmployee = findViewById(R.id.lsvEmployee);
 
         FullTimeEmployee fullTimeEmployee1 = new FullTimeEmployee();
         fullTimeEmployee1.setName("Angela");
@@ -69,8 +76,33 @@ public class FullTimeEmployeeListActivity extends AppCompatActivity {
 
         fullTimeEmployeeList.add(fullTimeEmployee5);
 
-        FullTimeEmployeeAdapter fullTimeEmployeeAdapter = new FullTimeEmployeeAdapter(this, fullTimeEmployeeList);
+        final FullTimeEmployeeAdapter fullTimeEmployeeAdapter = new FullTimeEmployeeAdapter(this, fullTimeEmployeeList);
         lsvEmployee.setAdapter(fullTimeEmployeeAdapter);
+
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                fullTimeEmployeeAdapter.searchEmployee(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        imvSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (edtSearch.getText() != null)
+                    fullTimeEmployeeAdapter.searchEmployee(edtSearch.getText().toString().trim());
+            }
+        });
     }
 
 }
